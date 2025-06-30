@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "エラビー (かんたん選択＆コピー)",
+  "version": "1.3",
+  "description": "ツールバーアイコン、または右クリックから、かんたんに文章を選択・コピーできます。",
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "contextMenus"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    },
+    "default_title": "エラビーをつかう"
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  }
+}
