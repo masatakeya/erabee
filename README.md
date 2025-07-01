@@ -1,7 +1,7 @@
 # erabee
 エラビー テキスト選択を支援する Chrome 拡張機能
 
-## 拡張機能として必要なファイル
+## A. 拡張機能として必要なファイル
 - manifest.json
 - content.js
 - background.js
@@ -10,5 +10,10 @@
   - images/icon48.png
   - images/icon16.png
  
-## ストア登録に必要なファイル
-- 
+## B. ストア登録に必要なファイル
+- erabee.zip　A のファイルをまとめたもの
+- privacy_policy.html　プライバシーポリシー
+- スクリーンショット
+  - コンテキストメニュー.png
+  - ボタン表示.png
+  - 選択結果.png
