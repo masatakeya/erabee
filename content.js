@@ -1,4 +1,4 @@
-/* === content.js (バージョン1.8 メッセージ表示修正版) === */
+/* === content.js (バージョン1.4) === */
 /*
   修正点：
   - ツールバーから起動した際に、黄色いメッセージバーが正しく表示されるように修正しました。
@@ -10,6 +10,7 @@
   // すでに起動中の場合は、モードを終了させてから再起動する
   if (typeof window.erabeeController !== 'undefined') {
       window.erabeeController.terminate();
+      return;
   }
 
   // --- メインコントローラーオブジェクト ---
@@ -24,16 +25,12 @@
 
     // 初期化（スクリプトが注入されるたびに実行）
     initialize: function() {
-        // 右クリックイベントを補足するためのリスナーを常時設置
-        // Note: このリスナーはページの生存期間中、1回だけ設定されるべきだが、
-        // 簡易的な拡張機能のため、ここでは毎回リセットされる前提で進める
         document.addEventListener('mousedown', (event) => {
             if (event.button === 2) { // 2は右クリック
                 this.lastRightClickEvent = event;
             }
         }, true);
         
-        // メソッドを自身のthisに束縛して、参照がずれないようにする
         this.boundListeners.pageClickHandler = (event) => this.handlePageClick(event);
         this.boundListeners.terminateHandler = () => this.terminate();
         
@@ -42,7 +39,6 @@
 
     // 起動方法を判断する
     determineStartMethod: function() {
-        // 直近の右クリックから100ミリ秒以内にスクリプトが実行されたら、コンテキストメニュー経由と判断
         if (this.lastRightClickEvent && (new Date().getTime() - this.lastRightClickEvent.timeStamp < 150)) {
             this.startAsContextMenu(this.lastRightClickEvent);
         } else {
@@ -54,7 +50,6 @@
     startAsToolbarMode: function() {
       this.isActive = true;
       document.body.style.cursor = 'pointer';
-      // ★★★★★ ここでメッセージバーを表示します ★★★★★
       this.showTopMessage('えらびたいところをおしてください。(もういちどアイコンでキャンセル)');
       document.addEventListener('click', this.boundListeners.pageClickHandler, true);
     },
@@ -72,13 +67,13 @@
     },
     
     terminate: function() {
-        if (!this.isActive && !this.ui.actionMenuDiv) return; // 二重終了を防止
+        if (!this.isActive && !this.ui.actionMenuDiv) return;
         this.isActive = false;
         document.body.style.cursor = 'default';
         this.hideTopMessage();
         this.hideActionMenu();
         document.removeEventListener('click', this.boundListeners.pageClickHandler, true);
-        delete window.erabeeController; // 後片付け
+        delete window.erabeeController;
     },
     
     findTargetElement: function(clickedElement) {
