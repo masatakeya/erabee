@@ -1,4 +1,4 @@
-// background.js (v1.3)
+// background.js (v1.4)
 
 // 拡張機能がインストールされたときに、右クリックメニューを作成する
 chrome.runtime.onInstalled.addListener(() => {
@@ -15,7 +15,7 @@ function executeErabeeScript(tab) {
 
     // 保護されたページでは実行しない
     if (tab.url && (tab.url.startsWith('chrome://') || tab.url.startsWith('https://chrome.google.com/webstore'))) {
-        console.log('保護（ほご）されたページではエラビーをつかえません。');
+        console.log('保護されたページではエラビーを起動できません。');
         return;
     }
 
